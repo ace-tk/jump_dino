@@ -21,8 +21,8 @@ body {
     left: 50px; 
     width: 40px;
     height: 40px;
-    background-color: black;
-    background-image: url(images/trex.png);
+    background-color: ;
+    background-image: url("images/trex.png");
     height: 94px;
     width: 94px;
 }
@@ -30,7 +30,7 @@ body {
     position: absolute;
     bottom: 0;
     right: 0;
-    background-image: url(images/1_Cactus_Chrome_Dino.webp.png);
+    background-image: url('images/1_Cactus_Chrome_Dino.webp.png');
     height: 77px;
     width : 77px;
 }
