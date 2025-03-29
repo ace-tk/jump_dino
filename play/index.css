@@ -1,0 +1,36 @@
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: white;
+}
+.game-container {
+    position: relative;
+    width:900px;
+    height: 500px;
+    border: 1px solid black;
+    overflow: hidden;
+    margin: auto;
+    padding: 20px;
+}
+.dino { 
+    position: absolute;
+    bottom: 0;
+    left: 50px; 
+    width: 40px;
+    height: 40px;
+    background-color: black;
+    background-image: url(images/trex.png);
+    height: 94px;
+    width: 94px;
+}
+.obstacle {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-image: url(images/1_Cactus_Chrome_Dino.webp.png);
+    height: 77px;
+    width : 77px;
+}
