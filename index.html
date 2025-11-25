@@ -3,14 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Dino Jump Game</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="game-container">
+    <div class="game-container" id="gameContainer">
+        <!-- Sky Background -->
+        <div class="sky"></div>
+        
+        <!-- Clouds Container -->
+        <div class="clouds-container" id="cloudsContainer"></div>
+        
+        <!-- Ground -->
+        <div class="ground">
+            <div class="ground-texture"></div>
+        </div>
+        
+        <!-- Game Elements -->
         <div class="dino" id="dino"></div>
         <div class="obstacle" id="obstacle"></div>
-        <p id="score">Score: 0</p>
+        
+        <!-- UI Elements -->
+        <div class="score-container">
+            <p id="score">Score: 0</p>
+            <p id="highScore">High Score: 0</p>
+        </div>
+        
+        <!-- Game Over Overlay -->
+        <div class="game-over-overlay" id="gameOverOverlay">
+            <div class="game-over-content">
+                <h2>Game Over!</h2>
+                <p class="final-score">Final Score: <span id="finalScore">0</span></p>
+                <p class="high-score-display">High Score: <span id="highScoreDisplay">0</span></p>
+                <button class="restart-btn" id="restartBtn">Restart Game</button>
+                <p class="instructions-text">Press Space or ↑ to jump</p>
+            </div>
+        </div>
+        
+        <!-- Start Screen -->
+        <div class="start-screen" id="startScreen">
+            <div class="start-content">
+                <h1>🦖 Dino Jump</h1>
+                <p>Press Space or ↑ to jump</p>
+                <p>Avoid the cacti!</p>
+                <button class="start-btn" id="startBtn">Start Game</button>
+            </div>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
