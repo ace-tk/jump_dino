@@ -54,13 +54,18 @@ function jump() {
                     clearInterval(downInterval);
                     isJumping = false;
                     position = 0;
+                    dino.style.bottom = "40%"; // Ensure it rests exactly at 40%
+                } else {
+                    position -= gravity;
+                    // Clamp position to 0 to prevent sinking below ground
+                    if (position < 0) position = 0;
+                    dino.style.bottom = (40 + position) + "%";
                 }
-                position -= gravity;
-                dino.style.bottom = (40 + position) + "%";
             }, 15);
+        } else {
+            position += gravity;
+            dino.style.bottom = (40 + position) + "%";
         }
-        position += gravity;
-        dino.style.bottom = (40 + position) + "%";
     }, 15);
 }
 
@@ -77,12 +82,12 @@ document.addEventListener("keydown", function (event) {
 });
 
 function createClouds() {
-   
+
     for (let i = 0; i < 5; i++) {
         createCloud(Math.random() * 900, Math.random() * 150 + 20);
     }
-    
-    
+
+
     setInterval(() => {
         if (gameRunning && !gameOver) {
             createCloud(900, Math.random() * 150 + 20);
@@ -93,70 +98,70 @@ function createClouds() {
 function createCloud(x, y) {
     const cloud = document.createElement("div");
     cloud.className = "cloud";
-   
+
     const size = Math.random() * 30 + 50;
     cloud.style.width = size + "px";
     cloud.style.height = size * 0.4 + "px";
     cloud.style.left = x + "px";
     cloud.style.top = y + "%";
-    
-   
+
+
     const cloudType = Math.floor(Math.random() * 3) + 1;
     cloud.classList.add("cloud" + cloudType);
-    
+
     cloudsContainer.appendChild(cloud);
-    
+
     let cloudPosition = x;
     const cloudSpeed = Math.random() * 2 + 1;
-    
+
     const cloudInterval = setInterval(() => {
         if (!gameRunning || gameOver) {
             clearInterval(cloudInterval);
             return;
         }
-        
+
         cloudPosition -= cloudSpeed;
         cloud.style.left = cloudPosition + "px";
-        
+
         if (cloudPosition < -200) {
             cloud.remove();
             clearInterval(cloudInterval);
         }
     }, 20);
-    
+
     cloudIntervals.push(cloudInterval);
 }
 
 function moveObstacle() {
     let obstaclePosition = 900;
-    
+
     obstacleInterval = setInterval(() => {
         if (gameOver || !gameRunning) {
             clearInterval(obstacleInterval);
             return;
         }
-        
+
         obstacleSpeed = baseSpeed + Math.floor(score / 10) * 0.5;
-        
+
         if (obstaclePosition <= -100) {
             obstaclePosition = 900;
             score++;
             scoreDisplay.innerText = "Score: " + score;
-            
-            
+
+
             if (score > highScore) {
                 highScore = score;
                 highScoreDisplay.innerText = "High Score: " + highScore;
                 localStorage.setItem("dinoHighScore", highScore);
             }
         }
-        
+
         obstaclePosition -= obstacleSpeed;
         obstacle.style.right = (900 - obstaclePosition) + "px";
-        
+
         const dinoRect = dino.getBoundingClientRect();
         const obstacleRect = obstacle.getBoundingClientRect();
-        
+
 
         if (
             dinoRect.right > obstacleRect.left + 10 &&
@@ -172,54 +177,54 @@ function moveObstacle() {
 
 function endGame() {
     if (gameOver) return;
-    
+
     gameOver = true;
     gameRunning = false;
-    
+
 
     if (obstacleInterval) {
         clearInterval(obstacleInterval);
     }
-    
+
     cloudIntervals.forEach(interval => clearInterval(interval));
     cloudIntervals = [];
-    
-  
+
+
     finalScoreDisplay.innerText = score;
     highScoreGameOverDisplay.innerText = highScore;
-    
-    
+
+
     gameOverOverlay.classList.add("show");
 }
 
 restartBtn.addEventListener("click", restartGame);
 
 function restartGame() {
-    
+
     gameOver = false;
     gameRunning = false;
     score = 0;
     obstacleSpeed = baseSpeed;
     isJumping = false;
-    
- 
+
+
     scoreDisplay.innerText = "Score: 0";
     gameOverOverlay.classList.remove("show");
 
     dino.style.bottom = "40%";
     obstacle.style.right = "0px";
-    
-  
+
+
     if (obstacleInterval) {
         clearInterval(obstacleInterval);
     }
-    
+
     cloudIntervals.forEach(interval => clearInterval(interval));
     cloudIntervals = [];
-    
+
 
     cloudsContainer.innerHTML = "";
-    
+
     gameRunning = true;
     moveObstacle();
     createClouds();
